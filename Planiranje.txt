@@ -1,0 +1,4 @@
+Freelance frontend developer -> short thoughts -> Newsletter
+Web application - simple, basic styling, functional, easy-to-use, fast
+Thoughts  - nice to see, useful, attractive but elegant
+	        - implement Markdown in body
