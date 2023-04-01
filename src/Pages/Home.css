@@ -1,5 +1,13 @@
 * {
   font-family: 'Lora', serif;
   
-
+  
 }
+
+body {
+  background-image:url(../Images/speakers-bg.png);
+  background-size:cover;
+ 
+ 
+}
+

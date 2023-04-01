@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { ShortThoughtsAPI } from '../API/ShortThoughtsAPI';
 
-const ThoughtModal = () => {
+const ThoughtModal = (props) => {
+  const [title, setTitle] = useState({fieldId:props.title.fieldId, value:props.title.value});
+  const [text, setText] = useState({fieldId:props.text.fieldId, value:props.text.value}); 
   const [show, setShow] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  
 
   return (
     <>
@@ -17,19 +23,39 @@ const ThoughtModal = () => {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        className="editModal"
       >
         <Modal.Header closeButton>
           <Modal.Title>My short thought</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form id='editModal'>
+          <Form id='editModal' onSubmit={(e) => {
+            e.preventDefault();
+            console.log('Submit edita');
+            console.log(JSON.stringify([title, text, props.date]));
+            
+            ShortThoughtsAPI.updateItem(props.id, JSON.stringify([title, text, props.date]));
+            
+          }}>
             <Form.Group className="mb-3" controlId="itemTitle">
               <Form.Label>Title</Form.Label>
-              <Form.Control type="text" placeholder="Choose a title" />
+              <Form.Control 
+              type="text" 
+              placeholder="Choose a title"
+              value={title.value}
+              onChange = {(e) => {setTitle({fieldId: title.fieldId, value: e.target.value})}}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="itemBody">
               <Form.Label>Text</Form.Label>
-              <Form.Control as="textarea" rows={8} placeholder="Write something..." />
+              <Form.Control 
+              as="textarea" 
+              rows={8} 
+              placeholder="Write something..."
+              value={text.value}
+              onChange = {(e) => {setText({fieldId: text.fieldId, value: e.target.value})}}
+              />
+              
             </Form.Group>
           </Form>
         </Modal.Body>

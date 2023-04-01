@@ -13,14 +13,15 @@ const ThoughtTable = () => {
   }
   useEffect(() => {
     getData();
-    }, [setData])
+    }, [])
 
-console.log(data);
 
+
+  console.log(data);
   return(
     <Container>
-      <Table responsive striped bordered>
-      <thead>
+      <Table responsive bordered>
+      <thead style={{color:"white"}}>
         <tr>
           <th>ID</th>
           <th>Title</th>
@@ -29,24 +30,23 @@ console.log(data);
           <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{color:"white"}}>
         {data.map((item) => 
         <tr key={item.id}>
           <td>{item.id}</td>
           <td>{item.values[0].value}</td>
           <td>{item.values[1].value.length > 30 ? item.values[1].value.substring(0,30)+'...' : item.values[1].value}</td>
           <td>{item.values[2].value}</td>
-          <td><ThoughtModal /></td>
+          <td><ThoughtModal id ={item.id} title={item.values[0]} text={item.values[1]} date={item.values[2]}/></td>
           
         </tr>
         )}
       </tbody>
     </Table>
-    
     </Container>
-    
+      
+  
 
-    
   );
 }
 
