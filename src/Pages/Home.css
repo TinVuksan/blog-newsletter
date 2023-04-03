@@ -11,3 +11,25 @@ body {
  
 }
 
+.markdown {
+  background-color: white;
+  max-width:45vw;
+  word-wrap:break-word;
+  overflow:auto;
+  border:1px solid #ced4da;
+  border-radius: 7px;
+  padding:7px;
+  min-height:20vh;
+}
+
+.editModal {
+  font-size:17px;
+}
+
+.buttons-div {
+  display:flex;
+  justify-content: space-evenly;
+}
+
+
+
