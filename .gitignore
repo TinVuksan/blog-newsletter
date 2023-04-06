@@ -24,6 +24,7 @@ yarn-error.log*
 
 #API
 config.js
+config2FA.js
 
 #Notes
 Planiranje.txt

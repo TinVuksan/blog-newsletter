@@ -8,23 +8,19 @@ import remarkGfm from 'remark-gfm';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-const ThoughtModalAdd = () => {
+const ThoughtModalAdd = (props) => {
   const [title, setTitle] = useState({fieldName: 'title', value: ''});
   const [text, setText] = useState({fieldName: 'body', value: ''});
   const [date, setDate] = useState({fieldName: 'creation_date', value: ''});
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  const data = {values: [title,text,date]};
 
   return (
     <>
-      <Button onClick={handleShow} variant="info" size="sm"><strong>Click here</strong></Button>
+      <Button onClick={props.toggleShow} variant="info" size="sm"><strong>Click here</strong></Button>
 
       <Modal
-        show={show}
-        onHide={handleClose}
+        show={props.show}
+        onHide={props.toggleShow}
         backdrop="static"
         keyboard={false}
         className="editModal"
@@ -35,10 +31,15 @@ const ThoughtModalAdd = () => {
         </Modal.Header>
         <Modal.Body>
           <Form id='editModal' onSubmit={(e) => {
-            handleClose();
+            props.toggleShow();
             e.preventDefault();
-            ShortThoughtsAPI.addItem(JSON.stringify({values:[title,text,date]}));
-            
+            ShortThoughtsAPI.addItem(JSON.stringify(data))
+            .then(() => {
+              setTimeout(() => {
+                props.getData();
+              }, 3000)   
+              
+            });
           }}>
             <Row className = "mb-3">
             <Form.Group as={Col} controlId="itemTitle">
@@ -109,7 +110,6 @@ const ThoughtModalAdd = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer className="modal-footer">
-          {/* <button onClick={handleClose} className="btn btn-danger m-auto">Close</button> */}
           <button form='editModal' className="btn btn-info m-auto"><strong>Add new thought</strong></button>
         </Modal.Footer>
       </Modal>

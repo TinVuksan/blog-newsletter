@@ -8,14 +8,25 @@ import ReactMarkdown from 'react-markdown';
 const ThoughtTable = () => {
   const [data,setData] = useState([]);
   const [show,setShow] = useState(false);
+  const [showAdd, setShowAdd] = useState(false);
+  const [selectedThought, setSelectedThought] = useState([]);
 
   const toggleShow = () => {
     setShow(!show);
   }
 
+  const toggleShowAdd = () => {
+    setShowAdd(!showAdd);
+  }
+
   const getData = async () => {
       setData(await ShortThoughtsAPI.getAll());
+  }
 
+  const openEditModal = (id) => {
+    const item = data.find(x => x.id === id);
+    setSelectedThought(item);
+    toggleShow();
   }
   
   useEffect(() => {
@@ -25,7 +36,7 @@ const ThoughtTable = () => {
   return(
     <Container>
       <Row>
-        <h3>Feeling inspired? Write it down  &#8594; <ThoughtModalAdd /></h3>
+        <h3>Feeling inspired? Write it down  &#8594; <ThoughtModalAdd getData = {getData} show={showAdd} toggleShow = {toggleShowAdd} /></h3>
       </Row>
       <Row>
       <Table bordered responsive style={{background:"rgba(0,0,0,0.5)"}}>
@@ -46,16 +57,18 @@ const ThoughtTable = () => {
           <td><ReactMarkdown>{item.values[1].value.length > 30 ? item.values[1].value.substring(0,30)+'...' : item.values[1].value}</ReactMarkdown></td>
           <td>{item.values[2].value}</td>
           <td className="actions-column"><div className="buttons-div">
-          <ThoughtModalEdit 
-          show={show} 
-          toggleShow = {toggleShow} 
-          id ={item.id} 
-          title={item.values[0]} 
-          text={item.values[1]} 
-          date={item.values[2]}
-          />
+          <Button onClick={() => openEditModal(item.id)} variant="info" size="sm">Show more</Button>
           <Button 
-          onClick={() => ShortThoughtsAPI.deleteItem(item.id)} 
+          onClick={() => {
+            if(window.confirm(`Delete thought no. ${item.id} ?`)) {
+              ShortThoughtsAPI.deleteItem(item.id).then(() => {
+                setTimeout(() => {
+                  getData();
+                }, 1500)
+              });
+            }
+            
+          }}
           variant="danger" 
           size="sm">Delete
           </Button>
@@ -67,7 +80,12 @@ const ThoughtTable = () => {
       </tbody>
     </Table>
       </Row>
-      
+    <ThoughtModalEdit 
+          show={show} 
+          toggleShow = {toggleShow}
+          item = {selectedThought}
+          getData = {getData}
+    />
     </Container>
       
   

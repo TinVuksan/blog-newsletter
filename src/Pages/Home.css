@@ -5,10 +5,11 @@
 }
 
 body {
-  background-image:url(../Images/speakers-bg.png);
-  background-size:cover;
- 
- 
+  background:url(../Images/home-bg.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .markdown {
@@ -31,5 +32,12 @@ body {
   justify-content: space-evenly;
 }
 
+.table-responsive {
+  text-align:center;
+}
+
+.modal-content {
+  background-color:#8b8b8bf7 !important;
+}
 
 

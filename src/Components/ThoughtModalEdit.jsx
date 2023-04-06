@@ -1,6 +1,5 @@
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { ShortThoughtsAPI } from '../API/ShortThoughtsAPI';
 import ReactMarkdown from 'react-markdown';
@@ -9,20 +8,26 @@ import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 const ThoughtModalEdit = (props) => {
-  const [title, setTitle] = useState(props.title);
-  const [text, setText] = useState(props.text);
-  const [date, setDate] = useState(props.date);
-  const [show, setShow] = useState(props.show);
+  const [title, setTitle] = useState({});
+  const [text, setText] = useState({});
+  const [date, setDate] = useState({});
+  const id = props.item.id;
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const assignValues = () => {
+    if(id) {
+      setTitle({fieldId: props.item.values[0].fieldId, value: props.item.values[0].value});
+      setText({fieldId: props.item.values[1].fieldId, value: props.item.values[1].value});
+      setDate({fieldId: props.item.values[2].fieldId, value: props.item.values[2].value});
+    }
+  }
 
-  //console.log(moment(date.value).format('YYYY-MM-DD')); RADI
+  useEffect(() => {
+    assignValues();
+    }, [id])
+
 
   return (
     <>
-      <Button onClick={props.toggleShow} variant="info" size="sm">Show more</Button>
-
       <Modal
         show={props.show}
         onHide={props.toggleShow}
@@ -36,18 +41,27 @@ const ThoughtModalEdit = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form id='editModal' onSubmit={(e) => {
-            handleClose();
             e.preventDefault();
-            ShortThoughtsAPI.updateItem(props.id, JSON.stringify([title, text, date]));          
+            props.toggleShow();
+            ShortThoughtsAPI.updateItem(id, JSON.stringify([title, text, date]))
+            .then(() => {
+              setTimeout(() => {
+                props.getData();
+              }, 2500)   
+              
+            }); 
+
           }}>
             <Row className="mb-3">
             <Form.Group as={Col} controlId="itemTitle">
               <Form.Label>Title</Form.Label>
               <Form.Control 
-              type="text" 
+              type="text"
               placeholder="Choose a title"
               value={title.value}
-              onChange = {(e) => {setTitle({fieldId: title.fieldId, value: e.target.value})}}
+              onChange = {(e) => {
+                setTitle({fieldId: title.fieldId, value: e.target.value});
+              }}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="itemBody">
@@ -56,8 +70,9 @@ const ThoughtModalEdit = (props) => {
               type="date" 
               placeholder="Date"
               value={date.value}
-              onChange = {(e) => {setDate({fieldId:date.fieldId, value:e.target.value})}}
-              disabled
+              onChange = {(e) => {
+                setDate({fieldId:date.fieldId, value:e.target.value});
+              }}
               />
               
             </Form.Group>
@@ -71,7 +86,9 @@ const ThoughtModalEdit = (props) => {
               rows={20}
               placeholder="Write something..."
               value={text.value}
-              onChange = {(e) => {setText({fieldId: text.fieldId, value: e.target.value})}}
+              onChange = {(e) => {
+                setText({fieldId: text.fieldId, value: e.target.value});
+              }}
               />
             </Form.Group>
             
@@ -100,17 +117,14 @@ const ThoughtModalEdit = (props) => {
                 }
               }}
               />
-              
               </div>
-              
             </Form.Group>            
             </Row>
-            
-            
+
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={props.toggleShow} className="btn btn-danger">Close</button>
+          <button onClick={props.toggleShow} className="btn btn-danger">Close</button> 
           <button form='editModal' className="btn btn-info">Update</button>
         </Modal.Footer>
       </Modal>
