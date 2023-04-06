@@ -16,6 +16,16 @@ interested in working on this project.
 For styling, I will probably use React-Bootstrap library, as well as some plain CSS. 
 Design **`must`** be responsive
 
+## FEATURES
+
+* Login, Registration, 2FA
+
+* Implemented markdown
+
+* CRUD operations over notes
+
+
+
 
 ### README file will be updated with future commits and possible new features
 
