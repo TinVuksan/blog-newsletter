@@ -27,5 +27,5 @@ Design **`must`** be responsive
 
 
 
-### README file will be updated with future commits and possible new features
+### ***README file will be updated with future commits and possible new features***
 
