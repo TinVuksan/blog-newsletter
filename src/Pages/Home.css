@@ -22,7 +22,9 @@ body {
   padding:7px;
   min-height:20vh;
 }
-
+.markdown p {
+  color:black;
+}
 .editModal {
   font-size:17px;
 }
