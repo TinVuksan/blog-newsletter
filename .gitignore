@@ -23,10 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 #API
-#config.js
+config.js
+config2FA.js
 
-#Dependencies-server
-src/Auth/Server/node_modules
+#SERVER
+src/Auth
 
 #Notes
 Planiranje.txt
