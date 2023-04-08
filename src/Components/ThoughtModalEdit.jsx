@@ -1,4 +1,4 @@
-import { useState, memo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { ShortThoughtsAPI } from '../API/ShortThoughtsAPI';
@@ -23,6 +23,7 @@ const ThoughtModalEdit = (props) => {
 
   useEffect(() => {
     assignValues();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
 
@@ -69,6 +70,7 @@ const ThoughtModalEdit = (props) => {
               <Form.Control 
               type="date" 
               placeholder="Date"
+              className="date"
               value={date.value}
               onChange = {(e) => {
                 setDate({fieldId:date.fieldId, value:e.target.value});
@@ -132,4 +134,4 @@ const ThoughtModalEdit = (props) => {
   );
 }
 
-export default memo(ThoughtModalEdit);
+export default ThoughtModalEdit;
