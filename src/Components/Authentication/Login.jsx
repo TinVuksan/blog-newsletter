@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import './styles.css';
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -25,7 +25,7 @@ const Login = () => {
             } else {
               console.log(data.data);
               localStorage.setItem("username", data.data.username);
-              navigate("/phone/verify");
+              //navigate("/phone/verify");
             }
         })
         .catch((err) => console.error(err));
@@ -42,7 +42,7 @@ const Login = () => {
     const gotoSignUpPage = () => navigate("/register");
 
     return (
-        <Container responsive className="login-container">
+        <Container className="login-container">
           <h2>Login </h2>
             <form className='login__form' onSubmit={handleSubmit}>
                 <label htmlFor='email'>Email</label>

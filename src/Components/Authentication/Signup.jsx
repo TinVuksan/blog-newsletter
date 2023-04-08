@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import './styles.css';
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -46,7 +46,7 @@ const Signup = () => {
     const gotoLoginPage = () => navigate("/");
 
     return (
-            <Container responsive className="register-container">
+            <Container className="register-container">
               <h2>Sign up </h2>
             <form className='signup__form' onSubmit={handleSubmit}>
                 <label htmlFor='email'>Email Address</label>

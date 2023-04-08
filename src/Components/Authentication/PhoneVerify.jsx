@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import './styles.css';
 const PhoneVerify = () => {
     const [code, setCode] = useState("");
     const navigate = useNavigate();
 
     const postVerification = async () => {
-      fetch("http://localhost:4000/api/verification", {
+      fetch("https://wpedd1.api.infobip.com/2fa/2/pin/{pinId}/verify", { //TODO KAK TU DOBITI PIN ID???
         method:"POST",
         body:JSON.stringify({
           code,
@@ -35,7 +35,7 @@ const PhoneVerify = () => {
         navigate("/home");
     };
     return (
-          <Container responsive className = "verify">
+            <Container className = "verify">
             <h2 style={{ marginBottom: "30px" }}>Verify your Phone number</h2>
             <form className='verify__form' onSubmit={handleSubmit}>
                 <label htmlFor='code' style={{ marginBottom: "10px" }}>
