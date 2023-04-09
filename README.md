@@ -33,7 +33,7 @@ Design **`must`** be responsive
 Part of this page (without Login/Registration) has been deployed via GitHub Pages, 
 if you want to see it, [click here](https://tinvuksan.github.io/blog-newsletter/).
 
-### Outro
+## Outro
 
 This page was created by Tin Vukšan. This project has taught me a couple of new things, 
 but it has definitely shown me a whole bunch of stuff I still can't wrap my head around.
