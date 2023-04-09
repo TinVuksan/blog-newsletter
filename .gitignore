@@ -27,10 +27,11 @@ yarn-error.log*
 
 
 #SERVER
-src/Auth
+src/Auth/Server/node_modules
 
 #Notes
 Planiranje.txt
+info.txt
 
 #ENV file
 .env

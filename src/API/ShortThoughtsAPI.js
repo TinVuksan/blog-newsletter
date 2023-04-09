@@ -19,9 +19,11 @@ export const ShortThoughtsAPI = {
           method:'PATCH',
           data: data
       }).then((response) => {
-        console.log("Izvršeno: ", response);
+        window.alert("Updated successfully!")
+        console.log(response);
       }).catch((error) => {
-        console.log("Greška: ", error);
+        window.alert("An error has occured!");
+        console.log(error);
       });
 
     },
@@ -32,9 +34,11 @@ export const ShortThoughtsAPI = {
         method:'POST',
         data:data
       }).then((res) => {
-        console.log("Item added!", res)
+        window.alert("Item added!");
+        console.log(res)
       }).catch((error) => {
-        console.log("Failed to add item", error);
+        window.alert("Failed to add item!");
+        console.log(error);
       });
       
     },
@@ -44,8 +48,10 @@ export const ShortThoughtsAPI = {
         url:`/catalogs/1/catalogs/10726/items/${id}`,
         method:'DELETE'
       }).then((res) => {
-        console.log("Deleted successfully", res);
+        window.alert(`Item no. ${id} deleted successfully!`);
+        console.log(res);
       }).catch((error) => {
+        window.alert("An error has occured");
         console.log(error);
       });
 

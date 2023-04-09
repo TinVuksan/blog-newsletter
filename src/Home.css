@@ -1,11 +1,9 @@
 * {
-  font-family: 'Lora', serif;
-  
-  
+  font-family: 'Lora', serif; 
 }
 
 body {
-  background:url(../Images/home-bg.png) no-repeat center center fixed; 
+  background:url(./Images/home-bg.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -45,4 +43,10 @@ body {
 .date  {
   width:fit-content !important;
 }
+.login-form label, h2, p {
+  color:white
+}
 
+.signup-form label, h2, p {
+  color:white;
+}

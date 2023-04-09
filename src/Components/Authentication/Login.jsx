@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import './styles.css';
+import { Form, Col} from "react-bootstrap";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -25,7 +25,7 @@ const Login = () => {
             } else {
               console.log(data.data);
               localStorage.setItem("username", data.data.username);
-              //navigate("/phone/verify");
+              navigate("/home");
             }
         })
         .catch((err) => console.error(err));
@@ -33,7 +33,6 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ email, password });
         postLoginDetails();
         setPassword("");
         setEmail("");
@@ -42,38 +41,43 @@ const Login = () => {
     const gotoSignUpPage = () => navigate("/register");
 
     return (
-        <Container className="login-container">
-          <h2>Login </h2>
-            <form className='login__form' onSubmit={handleSubmit}>
-                <label htmlFor='email'>Email</label>
-                <input
+        <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center" fluid>
+            <Form className='login-form' onSubmit={handleSubmit}>
+              <h2 className="mb-3">Login</h2>
+                <Col xs="auto" className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
                     type='text'
                     id='email'
+                    placeholder="Enter your email"
                     name='email'
                     value={email}
                     required
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor='password'>Password</label>
-                <input
+                </Col>
+                <Col xs="auto" className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
                     type='password'
-                    name='password'
                     id='password'
-                    minLength={8}
-                    required
+                    placeholder="Enter password"
+                    name='password'
                     value={password}
+                    required
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className='btn btn-dark'>SIGN IN</button>
-                <p>
-                    Don't have an account?{" "}
-                    <span className='link' onClick={gotoSignUpPage}>
-                        Sign up
-                    </span>
+                </Col>
+              
+                <button className='btn btn-info mt-1'>SIGN IN</button>
+                
+                <p className="mt-1">
+                Don't have an account? <span style = {{color:"red", cursor:"pointer"}} onClick={gotoSignUpPage}>Sign up</span>
                 </p>
-            </form>
-        </Container>
-            
+            </Form>
+          </Container>
+          
+          
         
     );
 };

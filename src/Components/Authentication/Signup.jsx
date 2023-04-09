@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import './styles.css';
+import {Form, Col} from "react-bootstrap";
+
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -36,7 +37,7 @@ const Signup = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ email, username, tel, password });
+       // console.log({ email, username, tel, password });
         postSignUpDetails();
         setEmail("");
         setTel("");
@@ -46,54 +47,65 @@ const Signup = () => {
     const gotoLoginPage = () => navigate("/");
 
     return (
-            <Container className="register-container">
-              <h2>Sign up </h2>
-            <form className='signup__form' onSubmit={handleSubmit}>
-                <label htmlFor='email'>Email Address</label>
-                <input
+            <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+              
+            <Form className='signup-form' onSubmit={handleSubmit}>
+            <h2 className="mb-3">Sign up </h2>
+            <Col xs="auto" className="mb-3">
+            <Form.Label>Email Address</Form.Label>
+                <Form.Control
                     type='email'
                     name='email'
+                    placeholder="Enter email"
                     id='email'
                     value={email}
                     required
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor='username'>Username</label>
-                <input
+            </Col>
+            <Col xs="auto" className="mb-3"> 
+            <Form.Label>Username</Form.Label>
+                <Form.Control
                     type='text'
                     id='username'
+                    placeholder="Enter username"
                     name='username'
                     value={username}
                     required
                     onChange={(e) => setUsername(e.target.value)}
                 />
-                <label htmlFor='tel'>Phone Number</label>
-                <input
+            </Col>
+            <Col xs="auto" className="mb-3">
+            <Form.Label>Phone Number</Form.Label>
+                <Form.Control
                     type='tel'
                     name='tel'
+                    placeholder="Enter phone number"
                     id='tel'
                     value={tel}
                     required
                     onChange={(e) => setTel(e.target.value)}
                 />
-                <label htmlFor='tel'>Password</label>
-                <input
+            </Col>
+            <Col xs="auto" className="mb-3">
+            <Form.Label>Password</Form.Label>
+                <Form.Control
                     type='password'
                     name='password'
+                    placeholder="Enter password"
                     id='password'
                     minLength={8}
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className='btn btn-dark'>SIGN UP</button>
-                <p>
-                    Already have an account?{" "}
-                    <span className='link' onClick={gotoLoginPage}>
-                        Login
-                    </span>
+            </Col>
+                
+                <button className='btn btn-info mt-1'>SIGN UP</button>
+                <p className="mt-1">
+                Already have an account? <span style = {{color:"red", cursor:"pointer"}} onClick={gotoLoginPage}>Log in</span>
                 </p>
-            </form>
+            </Form>
             </Container>
             
        

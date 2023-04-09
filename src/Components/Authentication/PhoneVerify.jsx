@@ -1,41 +1,41 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import './styles.css';
+
 const PhoneVerify = () => {
     const [code, setCode] = useState("");
     const navigate = useNavigate();
 
-    const postVerification = async () => {
-      fetch("https://wpedd1.api.infobip.com/2fa/2/pin/{pinId}/verify", { //TODO KAK TU DOBITI PIN ID???
-        method:"POST",
-        body:JSON.stringify({
-          code,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => res.json())
-      .then((data) => {
-        if(data.error_message) {
-          alert(data.error_message);
-        } else {
-          navigate("/home")
-        }
-      })
-      .catch((err) => console.error(err));
-    };
+    // const postVerification = async () => {
+    //   fetch(`https://wpedd1.api.infobip.com/2fa/2/pin/{pinId}/verify`, { 
+    //     method:"POST",
+    //     body:JSON.stringify({
+    //       code,
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if(data.error_message) {
+    //       alert(data.error_message);
+    //     } else {
+    //       navigate("/home")
+    //     }
+    //   })
+    //   .catch((err) => console.error(err));
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ code });
-        postVerification();
+        //console.log({ code });
+       // postVerification();
         setCode("");
         navigate("/home");
     };
     return (
-            <Container className = "verify">
+            <Container>
             <h2 style={{ marginBottom: "30px" }}>Verify your Phone number</h2>
             <form className='verify__form' onSubmit={handleSubmit}>
                 <label htmlFor='code' style={{ marginBottom: "10px" }}>
