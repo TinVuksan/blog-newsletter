@@ -27,8 +27,8 @@ yarn-error.log*
 
 
 #SERVER
-src/Auth/Server/node_modules
-
+src/Auth
+src/Components/Authentication
 #Notes
 Planiranje.txt
 info.txt
