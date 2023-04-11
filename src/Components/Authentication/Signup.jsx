@@ -37,7 +37,6 @@ const Signup = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       // console.log({ email, username, tel, password });
         postSignUpDetails();
         setEmail("");
         setTel("");

@@ -19,6 +19,7 @@ const ThoughtTable = () => {
     setShowAdd(!showAdd);
   }
 
+  //Fetch data from API
   const getData = async () => {
       setData(await ShortThoughtsAPI.getAll());
   }
@@ -54,10 +55,13 @@ const ThoughtTable = () => {
         <tr key={item.id}>
           <td>{item.id}</td>
           <td>{item.values[0].value}</td>
+          {/* If message is longer than 30 characters, don't display all of it */}
           <td><ReactMarkdown>{item.values[1].value.length > 30 ? item.values[1].value.substring(0,30)+'...' : item.values[1].value}</ReactMarkdown></td>
           <td>{item.values[2].value}</td>
           <td className="actions-column"><div className="buttons-div">
+          {/* Edit item button */}
           <Button onClick={() => openEditModal(item.id)} variant="info" size="sm">Show more</Button>
+          {/* Delete button */}
           <Button 
           onClick={() => {
             if(window.confirm(`Delete thought no. ${item.id} ?`)) {

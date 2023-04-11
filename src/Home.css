@@ -10,6 +10,17 @@ body {
   background-size: cover;
 }
 
+.div-container {
+  display:flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+#logoutBtn {
+  min-width:8vw;
+
+}
+
 .markdown {
   background-color: white;
   max-width:45vw;

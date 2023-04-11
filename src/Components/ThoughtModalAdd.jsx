@@ -31,6 +31,7 @@ const ThoughtModalAdd = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form id='editModal' onSubmit={(e) => {
+            //Add item function
             props.toggleShow();
             e.preventDefault();
             ShortThoughtsAPI.addItem(JSON.stringify(data))
@@ -52,7 +53,7 @@ const ThoughtModalAdd = (props) => {
               required
               />
             </Form.Group>
-            <Form.Group as={Col} controlId="itemBody">
+            <Form.Group as={Col} controlId="itemDate">
               <Form.Label>Date</Form.Label>
               <Form.Control 
               type="date" 
@@ -76,9 +77,10 @@ const ThoughtModalAdd = (props) => {
               required
               />
             </Form.Group>
-            <Form.Group as = {Col} controlId="itemBody">
+            <Form.Group as = {Col} controlId="itemMarkdown">
               <Form.Label>Markdown preview</Form.Label>
               <div className="markdown">
+              {/* Custom React component for displaying Markdown */}
               <ReactMarkdown 
               children={text.value}
               remarkPlugins={[remarkGfm]}
