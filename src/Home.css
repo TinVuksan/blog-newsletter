@@ -16,11 +16,6 @@ body {
   align-items: center;
 }
 
-#logoutBtn {
-  min-width:8vw;
-
-}
-
 .markdown {
   background-color: white;
   max-width:45vw;
@@ -32,6 +27,9 @@ body {
   min-height:20vh;
 }
 .markdown p {
+  color:black;
+}
+.markdown h2 {
   color:black;
 }
 .editModal {
