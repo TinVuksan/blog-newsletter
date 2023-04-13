@@ -10,7 +10,7 @@ on:
     branches: [ "master" ]
 
 env: 
-  API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+  REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
 
 jobs:
   build:
