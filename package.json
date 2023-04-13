@@ -57,9 +57,7 @@
     ]
   },
   "react-dotenv": {
-    "whitelist": [
-      "API_KEY"
-    ]
+    "whitelist": ["REACT_APP_API_KEY"]
   },
   "devDependencies": {
     "gh-pages": "^5.0.0"
