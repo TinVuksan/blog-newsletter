@@ -5,7 +5,7 @@ const api = axios.create({
     baseURL: `https://wpedd1.api.infobip.com`,
     headers:{
       'Content-Type': 'application/json',
-      Authorization: process.env.API_KEY,
+      Authorization: window.env.REACT_APP_API_KEY,
       Accept:'application/json',
       
       
