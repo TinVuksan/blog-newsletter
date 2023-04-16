@@ -1,13 +1,26 @@
 import axios from 'axios';
-import env from 'react-dotenv';
 const api = axios.create({
     withCredentials: true,
     baseURL: `https://wpedd1.api.infobip.com`,
     headers:{
-      'Content-Type': 'application/json',
-      Authorization: env.REACT_APP_API_KEY,
-      Accept:'application/json',
-      
+      post: {
+        "Content-Type": "application/json",
+        "Authorization": process.env.REACT_APP_APIKEY,
+        "Accept":"application/json",
+      },
+      get: {
+        "Authorization": process.env.REACT_APP_APIKEY,
+        "Accept": "application/json",
+      },
+      delete: {
+        "Authorization": process.env.REACT_APP_APIKEY,
+        "Accept":"application/json",
+      },
+      patch: {
+        "Content-Type": "application/json",
+        "Authorization": process.env.REACT_APP_APIKEY,
+        "Accept":"application/json",
+      }
       
     }
  });
