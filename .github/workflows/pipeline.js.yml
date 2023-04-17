@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.15.0]
-        #komentar
+        #Matrix is used to test code in multiple versions/operating systems
 
     steps:
     - uses: actions/checkout@v3
