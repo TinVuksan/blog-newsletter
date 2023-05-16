@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Form, Col} from "react-bootstrap";
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -31,7 +32,7 @@ const Login = () => {
         .catch((err) => console.error(err));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e)=> {
         e.preventDefault();
         postLoginDetails();
         setPassword("");

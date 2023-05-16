@@ -4,14 +4,18 @@ import { ShortThoughtsAPI } from "../API/ShortThoughtsAPI";
 import ThoughtModalEdit from "./ThoughtModalEdit";
 import ThoughtModalAdd from "./ThoughtModalAdd";
 import ReactMarkdown from 'react-markdown';
+import {Thought} from "../interfaces";
+
+
+
 
 const ThoughtTable = () => {
-  const [data,setData] = useState([]);
-  const [show,setShow] = useState(false);
-  const [showAdd, setShowAdd] = useState(false);
-  const [selectedThought, setSelectedThought] = useState([]);
+  const [data,setData] = useState<Thought[]>([]);
+  const [show,setShow] = useState<boolean>(false);
+  const [showAdd, setShowAdd] = useState<boolean>(false);
+  const [selectedThought, setSelectedThought] = useState<Thought | undefined>(undefined);
 
-  const toggleShow = () => {
+  const toggleShow = ():void => {
     setShow(!show);
   }
 
@@ -24,14 +28,16 @@ const ThoughtTable = () => {
       setData(await ShortThoughtsAPI.getAll());
   }
 
-  const openEditModal = (id) => {
-    const item = data.find(x => x.id === id);
+  const openEditModal = (id:number):void => {
+    const item = data!.find(x => x.id === id);
+    console.log(item);
     setSelectedThought(item);
     toggleShow();
   }
   
   useEffect(() => {
     getData();
+    console.log(data);
     }, [])
 
   return(
@@ -51,7 +57,7 @@ const ThoughtTable = () => {
         </tr>
       </thead>
       <tbody style={{color:"white"}}>
-        {data.map((item) => 
+        { data && data.map((item) =>
         <tr key={item.id}>
           <td>{item.id}</td>
           <td>{item.values[0].value}</td>

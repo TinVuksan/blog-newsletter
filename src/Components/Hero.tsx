@@ -1,6 +1,11 @@
 import {Container} from "react-bootstrap";
+import {MouseEventHandler} from "react";
 
-const Hero = ({signOut}) => {
+
+type Props = {
+    signOut: MouseEventHandler,
+}
+const Hero = ({signOut} : Props) => {
   return (
     <Container fluid className="container mb-5 mt-3">
       <div className = "div-container">

@@ -2,25 +2,34 @@ import { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+// @ts-ignore
 import { ShortThoughtsAPI } from '../API/ShortThoughtsAPI';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+// @ts-ignore
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+// @ts-ignore
 import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import {ThoughtValues} from "../interfaces";
 
-const ThoughtModalAdd = (props) => {
-  const [title, setTitle] = useState({fieldName: 'title', value: ''});
-  const [text, setText] = useState({fieldName: 'body', value: ''});
-  const [date, setDate] = useState({fieldName: 'creation_date', value: ''});
+type Props = {
+  show:boolean,
+  toggleShow(): void,
+  getData(): Promise<void>,
+}
+const ThoughtModalAdd = ({getData, show, toggleShow} : Props ) => {
+  const [title, setTitle] = useState<ThoughtValues>({fieldName: 'title', value: ''});
+  const [text, setText] = useState<ThoughtValues>({fieldName: 'body', value: ''});
+  const [date, setDate] = useState<ThoughtValues>({fieldName: 'creation_date', value: ''});
   const data = {values: [title,text,date]};
 
   return (
     <>
-      <Button onClick={props.toggleShow} variant="info" size="sm"><strong>Click here</strong></Button>
+      <Button onClick={toggleShow} variant="info" size="sm"><strong>Click here</strong></Button>
 
       <Modal
-        show={props.show}
-        onHide={props.toggleShow}
+        show={show}
+        onHide={toggleShow}
         backdrop="static"
         keyboard={false}
         className="editModal"
@@ -32,12 +41,12 @@ const ThoughtModalAdd = (props) => {
         <Modal.Body>
           <Form id='editModal' onSubmit={(e) => {
             //Add item function
-            props.toggleShow();
+            toggleShow();
             e.preventDefault();
             ShortThoughtsAPI.addItem(JSON.stringify(data))
             .then(() => {
               setTimeout(() => {
-                props.getData();
+                getData();
               }, 3000)   
               
             });

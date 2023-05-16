@@ -1,9 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const {sendSMS} = require('./sendSMS');
+//const {sendSMS} = require('./sendSMS');
 require('dotenv').config();
-const port = process.env.PORT;
+const port = 4000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

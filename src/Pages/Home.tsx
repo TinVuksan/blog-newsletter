@@ -9,8 +9,8 @@ const Home = () => {
 
   //Check if user is logged in and sign out function
   const navigate = useNavigate();
-  useEffect(() => {
-        const checkUser = () => {
+  useEffect(() : void => {
+        const checkUser = () : void => {
             if (!localStorage.getItem("username")) {
                 navigate("/");
             }
@@ -18,7 +18,7 @@ const Home = () => {
         checkUser();
     }, [navigate]);
 
-    const handleSignOut = () => {
+    const handleSignOut = () : void => {
         localStorage.removeItem("username");
         navigate("/");
     };

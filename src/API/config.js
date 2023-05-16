@@ -5,20 +5,20 @@ const api = axios.create({
     headers:{
       post: {
         "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_APIKEY,
+        "Authorization": "App 945c9bf931ea370b1d86d8e01ef4a302-b29943ca-b359-4fb3-b200-a94232ee495f",
         "Accept":"application/json",
       },
       get: {
-        "Authorization": process.env.REACT_APP_APIKEY,
+        "Authorization": "App 945c9bf931ea370b1d86d8e01ef4a302-b29943ca-b359-4fb3-b200-a94232ee495f",
         "Accept": "application/json",
       },
       delete: {
-        "Authorization": process.env.REACT_APP_APIKEY,
+        "Authorization": "App 945c9bf931ea370b1d86d8e01ef4a302-b29943ca-b359-4fb3-b200-a94232ee495f",
         "Accept":"application/json",
       },
       patch: {
         "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_APIKEY,
+        "Authorization": "App 945c9bf931ea370b1d86d8e01ef4a302-b29943ca-b359-4fb3-b200-a94232ee495f",
         "Accept":"application/json",
       }
       

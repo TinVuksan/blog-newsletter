@@ -1,23 +1,34 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
+// @ts-ignore
 import { ShortThoughtsAPI } from '../API/ShortThoughtsAPI';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+// @ts-ignore
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+// @ts-ignore
 import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import {Thought, ThoughtValues} from "../interfaces";
 
-const ThoughtModalEdit = (props) => {
-  const [title, setTitle] = useState({});
-  const [text, setText] = useState({});
-  const [date, setDate] = useState({});
-  const id = props.item.id;
+type Props = {
+  show:boolean,
+  toggleShow(): void,
+  item:Thought | undefined,
+  getData(): Promise<void>,
+}
+
+const ThoughtModalEdit = ({show, toggleShow, item, getData} : Props) => {
+  const [title, setTitle] = useState<ThoughtValues>({} as ThoughtValues);
+  const [text, setText] = useState<ThoughtValues>({} as ThoughtValues);
+  const [date, setDate] = useState<ThoughtValues>({} as ThoughtValues);
+  const id = item?.id;
 
   const assignValues = () => {
     if(id) {
-      setTitle({fieldId: props.item.values[0].fieldId, value: props.item.values[0].value});
-      setText({fieldId: props.item.values[1].fieldId, value: props.item.values[1].value});
-      setDate({fieldId: props.item.values[2].fieldId, value: props.item.values[2].value});
+      setTitle({fieldId: item.values[0].fieldId, value: item.values[0].value});
+      setText({fieldId: item.values[1].fieldId, value: item.values[1].value});
+      setDate({fieldId: item.values[2].fieldId, value: item.values[2].value});
     }
   }
 
@@ -30,8 +41,8 @@ const ThoughtModalEdit = (props) => {
   return (
     <>
       <Modal
-        show={props.show}
-        onHide={props.toggleShow}
+        show={show}
+        onHide={toggleShow}
         backdrop="static"
         keyboard={false}
         className="editModal"
@@ -41,13 +52,13 @@ const ThoughtModalEdit = (props) => {
           <Modal.Title>My short thought</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form id='editModal' onSubmit={(e) => {
+          <Form id='editModal' onSubmit={(e) : void => {
             e.preventDefault();
-            props.toggleShow();
+            toggleShow();
             ShortThoughtsAPI.updateItem(id, JSON.stringify([title, text, date]))
             .then(() => {
               setTimeout(() => {
-                props.getData();
+                getData();
               }, 2500)   
               
             }); 
@@ -60,7 +71,7 @@ const ThoughtModalEdit = (props) => {
               type="text"
               placeholder="Choose a title"
               value={title.value}
-              onChange = {(e) => {
+              onChange = {(e) : void => {
                 setTitle({fieldId: title.fieldId, value: e.target.value});
               }}
               />
@@ -72,7 +83,7 @@ const ThoughtModalEdit = (props) => {
               placeholder="Date"
               className="date"
               value={date.value}
-              onChange = {(e) => {
+              onChange = {(e) : void => {
                 setDate({fieldId:date.fieldId, value:e.target.value});
               }}
               />
@@ -88,7 +99,7 @@ const ThoughtModalEdit = (props) => {
               rows={20}
               placeholder="Write something..."
               value={text.value}
-              onChange = {(e) => {
+              onChange = {(e) : void => {
                 setText({fieldId: text.fieldId, value: e.target.value});
               }}
               />
@@ -126,7 +137,7 @@ const ThoughtModalEdit = (props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={props.toggleShow} className="btn btn-danger">Close</button> 
+          <button onClick={() => toggleShow} className="btn btn-danger">Close</button>
           <button form='editModal' className="btn btn-info">Update</button>
         </Modal.Footer>
       </Modal>
