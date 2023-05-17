@@ -1,6 +1,6 @@
 import Hero from '../Components/Hero';
 import {useEffect} from 'react';
-import '../Home.css';
+
 import ThoughtTable from '../Components/ThoughtTable'
 import { Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";

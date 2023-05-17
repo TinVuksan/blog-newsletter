@@ -1,6 +1,6 @@
 import {Container} from "react-bootstrap";
 import {MouseEventHandler} from "react";
-
+import styles from "../home.module.css";
 
 type Props = {
     signOut: MouseEventHandler,
@@ -8,7 +8,7 @@ type Props = {
 const Hero = ({signOut} : Props) => {
   return (
     <Container fluid className="container mb-5 mt-3">
-      <div className = "div-container">
+      <div className = {styles.divContainer}>
       <h1 className="mb-3">Their biggest vice - My awesome advice</h1>
       <button onClick = {signOut} type="button" id="logoutBtn" className = "btn btn-dark">Sign out</button>
       </div>

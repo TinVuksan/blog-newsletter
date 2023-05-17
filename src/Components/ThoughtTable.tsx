@@ -5,6 +5,7 @@ import ThoughtModalEdit from "./ThoughtModalEdit";
 import ThoughtModalAdd from "./ThoughtModalAdd";
 import ReactMarkdown from 'react-markdown';
 import {Thought} from "../interfaces";
+import styles from "../home.module.css";
 
 
 
@@ -64,7 +65,7 @@ const ThoughtTable = () => {
           {/* If message is longer than 30 characters, don't display all of it */}
           <td><ReactMarkdown>{item.values[1].value.length > 30 ? item.values[1].value.substring(0,30)+'...' : item.values[1].value}</ReactMarkdown></td>
           <td>{item.values[2].value}</td>
-          <td className="actions-column"><div className="buttons-div">
+          <td className="actions-column"><div className={styles.buttonsDiv}>
           {/* Edit item button */}
           <Button onClick={() => openEditModal(item.id)} variant="info" size="sm">Show more</Button>
           {/* Delete button */}
