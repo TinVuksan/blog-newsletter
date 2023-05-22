@@ -10,6 +10,12 @@ body {
   background-size: cover;
 }
 
+.tableHeaders {
+  font-weight: bolder;
+  font-size:26px;
+
+}
+
 .divContainer {
   display:flex;
   justify-content:space-between;
@@ -33,7 +39,7 @@ body {
   color:black;
 }
 .editModal {
-  font-size:17px;
+  font-size:18px;
 }
 
 .buttonsDiv {

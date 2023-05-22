@@ -9,11 +9,11 @@ const Hero = ({signOut} : Props) => {
   return (
     <Container fluid className="container mb-5 mt-3">
       <div className = {styles.divContainer}>
-      <h1 className="mb-3">Their biggest vice - My awesome advice</h1>
-      <button onClick = {signOut} type="button" id="logoutBtn" className = "btn btn-dark">Sign out</button>
+      <h1 aria-label = "Hero title" className="mb-3">Their biggest vice - My awesome advice</h1>
+      <button aria-label = "Sign out button" onClick = {signOut} type="button" id="logoutBtn" className = "btn btn-dark">Sign out</button>
       </div>
       
-      <h3 style={{fontStyle:"italic", fontSize:"1.5rem"}}>My recent short thoughts</h3>
+      <h3 aria-label = "Hero subtitle" style={{fontStyle:"italic", fontSize:"1.5rem"}}>My recent short thoughts</h3>
     </Container>
   );
 }

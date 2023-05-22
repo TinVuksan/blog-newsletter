@@ -48,14 +48,16 @@ const Signup = () => {
     return (
             <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
               
-            <Form className='signup-form' onSubmit={handleSubmit}>
+            <Form className='signup-form' aria-label = "Signup form" onSubmit={handleSubmit}>
             <h2 className="mb-3">Sign up </h2>
             <Col xs="auto" className="mb-3">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label id = "signupForm-email">Email Address</Form.Label>
                 <Form.Control
                     type='email'
                     name='email'
-                    placeholder="Enter email"
+                    aria-placeholder = "foo@bar.com"
+                    placeholder="foo@bar.com"
+                    aria-labelledby = "signupForm-email"
                     id='email'
                     value={email}
                     required
@@ -63,11 +65,13 @@ const Signup = () => {
                 />
             </Col>
             <Col xs="auto" className="mb-3"> 
-            <Form.Label>Username</Form.Label>
+            <Form.Label id = "signupForm-username">Username</Form.Label>
                 <Form.Control
                     type='text'
                     id='username'
-                    placeholder="Enter username"
+                    placeholder="JackWhite123"
+                    aria-placeholder = "JackWhite123"
+                    aria-labelledby = "signupForm-username"
                     name='username'
                     value={username}
                     required
@@ -75,11 +79,13 @@ const Signup = () => {
                 />
             </Col>
             <Col xs="auto" className="mb-3">
-            <Form.Label>Phone Number</Form.Label>
+            <Form.Label id = "signupForm-phone">Phone Number</Form.Label>
                 <Form.Control
                     type='tel'
                     name='tel'
-                    placeholder="Enter phone number"
+                    placeholder="098 1234 567"
+                    aria-placeholder = "098 1234 567"
+                    aria-labelledby = "signupForm-phone"
                     id='tel'
                     value={tel}
                     required
@@ -87,11 +93,13 @@ const Signup = () => {
                 />
             </Col>
             <Col xs="auto" className="mb-3">
-            <Form.Label>Password</Form.Label>
+            <Form.Label id = "signupForm-password">Password</Form.Label>
                 <Form.Control
                     type='password'
                     name='password'
-                    placeholder="Enter password"
+                    placeholder="mypassword"
+                    aria-placeholder = "mypassword"
+                    aria-labelledby = "signupForm-password"
                     id='password'
                     minLength={8}
                     required
@@ -100,9 +108,9 @@ const Signup = () => {
                 />
             </Col>
                 
-                <button className='btn btn-info mt-1'>SIGN UP</button>
+                <button aria-label = "Sign up button" className='btn btn-info mt-1'>SIGN UP</button>
                 <p className="mt-1">
-                Already have an account? <span style = {{color:"red", cursor:"pointer"}} onClick={gotoLoginPage}>Log in</span>
+                Already have an account? <span aria-label = "Jump to register page" aria-description = "Click here if you already have an account" style = {{color:"red", cursor:"pointer"}} onClick={gotoLoginPage}>Log in</span>
                 </p>
             </Form>
             </Container>

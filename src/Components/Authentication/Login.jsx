@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Form, Col} from "react-bootstrap";
-
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -43,14 +42,16 @@ const Login = () => {
 
     return (
         <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center" fluid>
-            <Form className='login-form' onSubmit={handleSubmit}>
+            <Form aria-label = "Log in form" className='login-form' onSubmit={handleSubmit}>
               <h2 className="mb-3">Login</h2>
                 <Col xs="auto" className="mb-3">
-                <Form.Label>Email</Form.Label>
+                <Form.Label id = "loginForm-email">Email</Form.Label>
                 <Form.Control
                     type='text'
                     id='email'
-                    placeholder="Enter your email"
+                    aria-placeholder = "foo@bar.com"
+                    aria-labelledby = "loginForm-email"
+                    placeholder="foo@bar.com"
                     name='email'
                     value={email}
                     required
@@ -58,11 +59,13 @@ const Login = () => {
                 />
                 </Col>
                 <Col xs="auto" className="mb-3">
-                <Form.Label>Password</Form.Label>
+                <Form.Label id = "loginForm-password">Password</Form.Label>
                 <Form.Control
                     type='password'
                     id='password'
-                    placeholder="Enter password"
+                    placeholder="A strong password"
+                    aria-placeholder = "A strong password"
+                    aria-labelledby = "loginForm-password"
                     name='password'
                     value={password}
                     required
@@ -70,10 +73,10 @@ const Login = () => {
                 />
                 </Col>
               
-                <button className='btn btn-info mt-1'>SIGN IN</button>
+                <button aria-label = "Login button" className='btn btn-info mt-1'>SIGN IN</button>
                 
                 <p className="mt-1">
-                Don't have an account? <span style = {{color:"red", cursor:"pointer"}} onClick={gotoSignUpPage}>Sign up</span>
+                Don't have an account? <span aria-label = "Jump to register page" aria-description = "Click here if you don't have an account" style = {{color:"red", cursor:"pointer"}} onClick={gotoSignUpPage}>Sign up</span>
                 </p>
             </Form>
           </Container>

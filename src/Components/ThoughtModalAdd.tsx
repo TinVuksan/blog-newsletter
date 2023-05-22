@@ -11,7 +11,7 @@ import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 // @ts-ignore
 import {materialDark} from 'react-syntax-highlighter/dist/esm/styles/prism'
 import {ThoughtValues} from "../interfaces";
-
+import styles from "../home.module.css"
 type Props = {
   show:boolean,
   toggleShow(): void,
@@ -25,7 +25,7 @@ const ThoughtModalAdd = ({getData, show, toggleShow} : Props ) => {
 
   return (
     <>
-      <Button onClick={toggleShow} variant="info" size="sm"><strong>Click here</strong></Button>
+      <Button title = "Add short thoughts" aria-label="Button for entering modal form" aria-description = "Button that opens modal form for adding short thoughts" onClick={toggleShow} variant="info" size="sm"><strong>Click here</strong></Button>
 
       <Modal
         show={show}
@@ -33,6 +33,7 @@ const ThoughtModalAdd = ({getData, show, toggleShow} : Props ) => {
         backdrop="static"
         keyboard={false}
         className="editModal"
+        aria-modal = "true"
         fullscreen
       >
         <Modal.Header closeButton>
@@ -53,20 +54,24 @@ const ThoughtModalAdd = ({getData, show, toggleShow} : Props ) => {
           }}>
             <Row className = "mb-3">
             <Form.Group as={Col} controlId="itemTitle">
-              <Form.Label>Title</Form.Label>
+              <Form.Label id = "addThoughtForm-title">Title</Form.Label>
               <Form.Control 
               type="text" 
-              placeholder="Choose a title"
+              aria-placeholder="Choose a title"
+              aria-labelledby = "addThoughtForm-title"
+              placeholder = "Choose a title"
               value={title.value}
               onChange = {(e) => {setTitle({fieldName: title.fieldName, value: e.target.value})}}
               required
               />
             </Form.Group>
             <Form.Group as={Col} controlId="itemDate">
-              <Form.Label>Date</Form.Label>
+              <Form.Label id = "addThoughtForm-date">Date</Form.Label>
               <Form.Control 
-              type="date" 
-              placeholder="Date"
+              type="date"
+              aria-placeholder = "MM/DD/YYYY"
+              aria-labelledby = "addThoughtForm-date"
+              placeholder="MM/DD/YYYY"
               value = {date.value}
               onChange = {(e) => {setDate({fieldName:date.fieldName, value:e.target.value})}}
               required
@@ -76,9 +81,12 @@ const ThoughtModalAdd = ({getData, show, toggleShow} : Props ) => {
 
             <Row className="mb-3">
             <Form.Group as={Col} controlId="itemBody">
-              <Form.Label>Text</Form.Label>
+              <Form.Label id = "addThoughtForm-body">Text</Form.Label>
               <Form.Control 
-              as="textarea" 
+              as="textarea"
+              aria-multiline="true"
+              aria-placeholder = "Write something"
+              aria-labelledby = "addThoughtForm-body"
               rows={20} 
               placeholder="Write something..."
               value = {text.value}
@@ -87,10 +95,14 @@ const ThoughtModalAdd = ({getData, show, toggleShow} : Props ) => {
               />
             </Form.Group>
             <Form.Group as = {Col} controlId="itemMarkdown">
-              <Form.Label>Markdown preview</Form.Label>
-              <div className="markdown">
+              <Form.Label id = "addThoughtForm-markdown">Markdown preview</Form.Label>
+              <div aria-placeholder = "Markdown preview"
+                   aria-labelledby = "addThoughtForm-markdown"
+                   aria-multiline = "true"
+                   aria-readonly="true"
+                   className={styles['markdown']}>
               {/* Custom React component for displaying Markdown */}
-              <ReactMarkdown 
+              <ReactMarkdown
               children={text.value}
               remarkPlugins={[remarkGfm]}
               components={{
@@ -120,8 +132,8 @@ const ThoughtModalAdd = ({getData, show, toggleShow} : Props ) => {
             
           </Form>
         </Modal.Body>
-        <Modal.Footer className="modal-footer">
-          <button form='editModal' className="btn btn-info m-auto"><strong>Add new thought</strong></button>
+        <Modal.Footer aria-label = "Modal footer" className="modal-footer">
+          <button aria-label = "Submit form button" aria-description="Button for submitting newly written thought" form='editModal' className="btn btn-info m-auto"><strong>Add new thought</strong></button>
         </Modal.Footer>
       </Modal>
     </>
