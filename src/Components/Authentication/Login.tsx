@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { SyntheticEvent, useState} from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Form, Col} from "react-bootstrap";
+import {User} from "../../interfaces";
+
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+
+
+    const [email, setEmail] = useState<User["email"]>("");
+    const [password, setPassword] = useState<User["password"]>("");
     const navigate = useNavigate();
 
-    const postLoginDetails = () => {
+    const postLoginDetails = () : void => {
       fetch("http://localhost:4000/api/login", {
         method: "POST",
         body: JSON.stringify({
@@ -18,8 +22,8 @@ const Login = () => {
             "Content-Type": "application/json",
         },
     })
-        .then((res) => res.json())
-        .then((data) => {
+        .then((res:Response) => res.json())
+        .then((data) : void => {
             if(data.error_message) {
               alert(data.error_message);
             } else {
@@ -31,7 +35,7 @@ const Login = () => {
         .catch((err) => console.error(err));
     };
 
-    const handleSubmit = (e)=> {
+    const handleSubmit = (e : SyntheticEvent) : void=> {
         e.preventDefault();
         postLoginDetails();
         setPassword("");
