@@ -1,34 +1,20 @@
-import Hero from '../Components/Hero';
-import {useEffect} from 'react';
-
-import ThoughtTable from '../Components/ThoughtTable'
-import { Container } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import Hero from "../Components/Hero";
+import { useCheckUser, useHandleSignout } from "../utils/hooks/useCheckUser";
+import ThoughtTable from "../Components/ThoughtTable";
+import { Container } from "react-bootstrap";
 
 const Home = () => {
+  useCheckUser();
+  const [handleSignout] = useHandleSignout();
 
   //Check if user is logged in and sign out function
-  const navigate = useNavigate();
-  useEffect(() : void => {
-        const checkUser = () : void => {
-            if (!localStorage.getItem("username")) {
-                navigate("/");
-            }
-        };
-        checkUser();
-    }, [navigate]);
-
-    const handleSignOut = () : void => {
-        localStorage.removeItem("username");
-        navigate("/");
-    };
 
   return (
-    <Container style = {{color:"white"}} fluid>
-      <Hero signOut = {handleSignOut} />
+    <Container style={{ color: "white" }} fluid>
+      <Hero signOut={handleSignout} />
       <ThoughtTable />
     </Container>
   );
-}
+};
 
 export default Home;

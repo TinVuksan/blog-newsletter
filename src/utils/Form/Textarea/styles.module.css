@@ -1,0 +1,16 @@
+.textareaContainer {
+
+    padding:7px;
+    width:fit-content;
+    margin:5px;
+    display:flex;
+    flex-direction:column;
+
+}
+
+.textareaElement {
+    margin-top:0.5vh;
+    background-color: white;
+    border:1px solid #ced4da;
+    border-radius: 7px;
+}

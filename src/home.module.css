@@ -1,67 +1,71 @@
 * {
-  font-family: 'Lora', serif;
+    font-family: 'Lora', serif;
 }
 
 body {
-  background:url(./Images/home-bg.png) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url(./Images/home-bg.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .tableHeaders {
-  font-weight: bolder;
-  font-size:26px;
+    font-weight: bolder;
+    font-size: 26px;
 
 }
 
 .divContainer {
-  display:flex;
-  justify-content:space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.markdown {
-  background-color: white;
-  max-width:45vw;
-  word-wrap:break-word;
-  overflow:auto;
-  border:1px solid #ced4da;
-  border-radius: 7px;
-  padding:7px;
-  min-height:20vh;
-}
-.markdown p {
-  color:black;
-}
-.markdown h2 {
-  color:black;
-}
 .editModal {
-  font-size:18px;
+    font-size: 18px;
 }
 
 .buttonsDiv {
-  display:flex;
-  justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .table-responsive {
-  text-align:center;
+    text-align: center;
 }
 
 .modal-content {
-  background-color:#8b8b8bf7 !important;
+    background-color: #8b8b8bf7 !important;
 }
 
-.date  {
-  width:fit-content !important;
+.date {
+    width: fit-content !important;
 }
-.login-form label, h2, p {
-  color:white
+
+.login-form label, h2, h1, p {
+    color: white
 }
 
 .signup-form label, h2, p {
-  color:white;
+    color: white;
+}
+
+.markdown {
+    background-color: white;
+    max-width: 45vw;
+    word-wrap: break-word;
+    overflow: auto;
+    border: 1px solid #ced4da;
+    border-radius: 7px;
+    padding: 7px;
+    min-height: 20vh;
+}
+
+.markdown p {
+    color: black;
+}
+
+.markdown h2 {
+    color: black;
 }
