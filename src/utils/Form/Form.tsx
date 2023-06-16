@@ -8,7 +8,7 @@ import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 // @ts-ignore
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import styles from "./styles.module.css";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, FormEventHandler, SetStateAction } from "react";
 import { ThoughtValues } from "../../interfaces";
 
 type Props = {
@@ -18,11 +18,22 @@ type Props = {
   setTitle: Dispatch<SetStateAction<ThoughtValues>>;
   setDate: Dispatch<SetStateAction<ThoughtValues>>;
   setText: Dispatch<SetStateAction<ThoughtValues>>;
+  onSubmit?: FormEventHandler<HTMLElement>;
+  formType: string;
 };
 
-const Form = ({ title, date, text, setTitle, setDate, setText }: Props) => {
+const Form = ({
+  title,
+  date,
+  text,
+  setTitle,
+  setDate,
+  setText,
+  onSubmit,
+  formType,
+}: Props) => {
   return (
-    <form className={styles.formContainer}>
+    <form className={styles.formContainer} onSubmit={onSubmit}>
       <Input
         label="Title"
         name="Title"

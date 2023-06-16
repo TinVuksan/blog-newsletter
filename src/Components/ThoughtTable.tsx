@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Container, Table, Row, Button } from "react-bootstrap";
+import { Container, Row, Card } from "react-bootstrap";
 import { ShortThoughtsAPI } from "../API/ShortThoughtsAPI";
 import ThoughtModalEdit from "./ThoughtModalEdit";
 import ThoughtModalAdd from "./ThoughtModalAdd";
-import ReactMarkdown from "react-markdown";
 import { Thought } from "../interfaces";
-import styles from "../home.module.css";
+import styles from "./thoughts.module.css";
 
 const ThoughtTable = () => {
   const [data, setData] = useState<Thought[]>([]);
@@ -28,23 +27,35 @@ const ThoughtTable = () => {
     setData(await ShortThoughtsAPI.getAll());
   };
 
-  const openEditModal = (selectedItem: Thought): void => {
-    setSelectedThought(selectedItem);
-    toggleShow();
+  /*  const openEditModal = (selectedItem: Thought): void => {
+        setSelectedThought(selectedItem);
+        toggleShow();
+      };*/
+
+  //DATE FORMAT
+  const formatDate = (dateString: string): string => {
+    const [year, month, day] = dateString.split("-");
+    const formatedDate = [day, month, year].join("-");
+    return formatedDate;
   };
 
+  const dateDifference = (dateString: string): number => {
+    const currentDate = new Date();
+    const dateOfCreation = new Date(dateString);
+    const timeDifference = Math.abs(
+      currentDate.getTime() - dateOfCreation.getTime()
+    );
+    const resultDate = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    return resultDate;
+  };
   useEffect(() => {
     getData();
-    console.log(data);
   }, []);
 
   return (
     <Container>
       <Row>
-        <h3
-          aria-label="Title with button"
-          aria-description="Header with a button for adding a short thought through a modal form"
-        >
+        <h3>
           Feeling inspired? Write it down &#8594;{" "}
           <ThoughtModalAdd
             getData={getData}
@@ -53,113 +64,122 @@ const ThoughtTable = () => {
           />
         </h3>
       </Row>
-      <Row>
-        <Table bordered responsive style={{ background: "rgba(0,0,0,0.5)" }}>
-          <thead style={{ color: "white" }}>
-            <tr className={styles.tableHeaders}>
-              <th id="id-table-header" aria-label="Thought ID column header">
-                ID
-              </th>
-              <th
-                id="title-table-header"
-                aria-label="Thought title column header"
-              >
-                Title
-              </th>
-              <th
-                id="body-table-header"
-                aria-label="Thought body column header"
-              >
-                Body
-              </th>
-              <th
-                id="date-table-header"
-                aria-label="Thought date column header"
-              >
-                Date
-              </th>
-              <th
-                id="actions-table-header"
-                aria-label="Column header that contains Show more/Delete buttons"
-              >
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody style={{ color: "white" }}>
-            {data &&
-              data.map((item) => (
-                <tr key={item.id}>
-                  <td
-                    aria-placeholder="Thought ID"
-                    aria-labelledby="id-table-header"
-                  >
-                    {item.id}
-                  </td>
-                  <td
-                    aria-placeholder="My thought title"
-                    aria-labelledby="title-table-header"
-                  >
-                    {item.values[0].value}
-                  </td>
-                  {/* If message is longer than 30 characters, don't display all of it */}
-                  <td
-                    aria-placeholder="Some text with markdown preview"
-                    aria-labelledby="body-table-header"
-                  >
-                    <ReactMarkdown>
-                      {item.values[1].value.length > 30
-                        ? item.values[1].value.substring(0, 30) + "..."
-                        : item.values[1].value}
-                    </ReactMarkdown>
-                  </td>
-                  <td
-                    aria-placeholder="YYYY-MM-DD"
-                    aria-labelledby="date-table-header"
-                  >
-                    {item.values[2].value}
-                  </td>
-                  <td
-                    aria-placeholder="Show more or Delete"
-                    aria-labelledby="actions-table-header"
-                    className="actions-column"
-                  >
-                    <div className={styles.buttonsDiv}>
-                      {/* Edit item button */}
-                      <Button
-                        aria-label="Show more button"
-                        onClick={() => openEditModal(item)}
-                        variant="info"
-                        size="sm"
-                      >
-                        Show more
-                      </Button>
-                      {/* Delete button */}
-                      <Button
-                        aria-label="Delete thought button"
-                        onClick={() => {
-                          if (
-                            window.confirm(`Delete thought no. ${item.id} ?`)
-                          ) {
-                            ShortThoughtsAPI.deleteItem(item.id).then(() => {
-                              setTimeout(() => {
-                                getData();
-                              }, 1500);
-                            });
-                          }
-                        }}
-                        variant="danger"
-                        size="sm"
-                      >
-                        Delete
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-      </Row>
+      <div role="presentation" className={styles.cardsContainer}>
+        {data.length > 0 ? (
+          data.map((item) => (
+            <Card
+              key={item.id}
+              bg="light"
+              text="dark"
+              border="info"
+              className={styles.card}
+            >
+              <Card.Body>
+                <Card.Title>{item.values[0].value}</Card.Title>
+                <Card.Text className={styles.cardText}>
+                  {item.values[1].value.length > 80
+                    ? item.values[1].value.substring(0, 80) + "..."
+                    : item.values[1].value}
+                </Card.Text>
+              </Card.Body>
+              <Card.Footer className={styles.cardFooter}>
+                {/*<Button onClick={() => openEditModal(item)} variant="info">*/}
+                {/*  Open*/}
+                {/*</Button>*/}
+                {/*/!* Delete button *!/*/}
+                {/*<Button*/}
+                {/*  onClick={() => {*/}
+                {/*    if (window.confirm(`Delete thought no. ${item.id} ?`)) {*/}
+                {/*      ShortThoughtsAPI.deleteItem(item.id).then(() => {*/}
+                {/*        setTimeout(() => {*/}
+                {/*          getData();*/}
+                {/*        }, 1500);*/}
+                {/*      });*/}
+                {/*    }*/}
+                {/*  }}*/}
+                {/*  variant="danger"*/}
+                {/*>*/}
+                {/*  Delete*/}
+                {/*</Button>*/}
+                <small>
+                  Created {formatDate(item.values[2].value)} -{" "}
+                  {dateDifference(item.values[2].value)} days ago{<br />} ID: #
+                  {item.id}
+                </small>
+              </Card.Footer>
+            </Card>
+          ))
+        ) : (
+          <h1>
+            Seems like you haven't written any thoughts yet. &#x1F615; <br />
+            Click on the button above to add your new thoughts!
+          </h1>
+        )}
+      </div>
+
+      {/*<Row>*/}
+      {/*  <Table bordered responsive style={{ background: "rgba(0,0,0,0.3)" }}>*/}
+      {/*    <thead style={{ color: "white" }}>*/}
+      {/*      <tr className={styles.tableHeaders}>*/}
+      {/*        <th id="id-table-header" aria-label="Thought ID column header">*/}
+      {/*          ID*/}
+      {/*        </th>*/}
+      {/*        <th id="title-table-header">Title</th>*/}
+      {/*        <th id="body-table-header">Body</th>*/}
+      {/*        <th id="date-table-header">Date</th>*/}
+      {/*        <th id="actions-table-header">Actions</th>*/}
+      {/*      </tr>*/}
+      {/*    </thead>*/}
+      {/*    <tbody style={{ color: "white" }}>*/}
+      {/*      {data &&*/}
+      {/*        data.map((item) => (*/}
+      {/*          <tr key={item.id}>*/}
+      {/*            <td>{item.id}</td>*/}
+      {/*            <td>{item.values[0].value}</td>*/}
+      {/*             If message is longer than 30 characters, don't display all of it */}
+      {/*            <td>*/}
+      {/*              <ReactMarkdown>*/}
+      {/*                {item.values[1].value.length > 30*/}
+      {/*                  ? item.values[1].value.substring(0, 30) + "..."*/}
+      {/*                  : item.values[1].value}*/}
+      {/*              </ReactMarkdown>*/}
+      {/*            </td>*/}
+      {/*            <td>{formatDate(item.values[2].value)}</td>*/}
+      {/*            <td className="actions-column">*/}
+      {/*              <div className={styles.buttonsDiv}>*/}
+      {/*                 Edit item button */}
+      {/*                <Button*/}
+      {/*                  onClick={() => openEditModal(item)}*/}
+      {/*                  variant="info"*/}
+      {/*                  size="sm"*/}
+      {/*                >*/}
+      {/*                  Show more*/}
+      {/*                </Button>*/}
+      {/*                 Delete button */}
+      {/*                <Button*/}
+      {/*                  onClick={() => {*/}
+      {/*                    if (*/}
+      {/*                      window.confirm(`Delete thought no. ${item.id} ?`)*/}
+      {/*                    ) {*/}
+      {/*                      ShortThoughtsAPI.deleteItem(item.id).then(() => {*/}
+      {/*                        setTimeout(() => {*/}
+      {/*                          getData();*/}
+      {/*                        }, 1500);*/}
+      {/*                      });*/}
+      {/*                    }*/}
+      {/*                  }}*/}
+      {/*                  variant="danger"*/}
+      {/*                  size="sm"*/}
+      {/*                >*/}
+      {/*                  Delete*/}
+      {/*                </Button>*/}
+      {/*              </div>*/}
+      {/*            </td>*/}
+      {/*          </tr>*/}
+      {/*        ))}*/}
+      {/*    </tbody>*/}
+      {/*  </Table>*/}
+      {/*</Row>*/}
       <ThoughtModalEdit
         show={show}
         toggleShow={toggleShow}

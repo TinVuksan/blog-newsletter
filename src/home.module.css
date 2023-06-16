@@ -16,6 +16,7 @@ body {
 
 }
 
+
 .divContainer {
     display: flex;
     justify-content: space-between;
@@ -43,11 +44,12 @@ body {
     width: fit-content !important;
 }
 
-.login-form label, h2, h1, p {
+.login-form :is(label,h2,h1,p) {
     color: white
 }
 
-.signup-form label, h2, p {
+
+.signup-form :is(label,h2,p) {
     color: white;
 }
 

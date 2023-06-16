@@ -1,5 +1,5 @@
-import { SyntheticEvent, useState } from "react";
-import { Container } from "react-bootstrap";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { User } from "../../interfaces";
@@ -25,11 +25,7 @@ const Signup = () => {
 
   return (
     <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-      <Form
-        className="signup-form"
-        aria-label="Signup form"
-        onSubmit={handleSubmit}
-      >
+      <Form className="signup-form">
         <h1 className="mb-3">Sign up </h1>
 
         <Input
@@ -39,6 +35,9 @@ const Signup = () => {
           type="email"
           required={true}
           value={email}
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            setEmail(e.target.value);
+          }}
         />
 
         <Input
@@ -48,6 +47,9 @@ const Signup = () => {
           type="text"
           required={true}
           value={username}
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            setUsername(e.target.value);
+          }}
         />
 
         <Input
@@ -57,6 +59,9 @@ const Signup = () => {
           type="tel"
           required={true}
           value={tel}
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            setTel(e.target.value);
+          }}
         />
         <Input
           label="Password"
@@ -65,9 +70,14 @@ const Signup = () => {
           type="password"
           required={true}
           value={password}
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            setPassword(e.target.value);
+          }}
         />
 
-        <button className="btn btn-info mt-1">SIGN UP</button>
+        <Button className="btn btn-info mt-1" onClick={handleSubmit}>
+          SIGN UP
+        </Button>
         <p className="mt-1">
           Already have an account?{" "}
           <a

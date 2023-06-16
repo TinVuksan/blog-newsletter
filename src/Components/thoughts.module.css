@@ -1,0 +1,25 @@
+.cardsContainer {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+
+}
+
+.card {
+    min-height: 25vh;
+    min-width: 15vw !important;
+    max-width: 20vw;
+    margin-right: 1vw;
+}
+
+.cardFooter {
+    display: flex;
+    align-items: center;
+    height: 20%;
+
+}
+
+.cardText {
+    margin-top: 5vh;
+}

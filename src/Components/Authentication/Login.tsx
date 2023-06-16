@@ -1,5 +1,5 @@
-import { SyntheticEvent, useState } from "react";
-import { Container } from "react-bootstrap";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { User } from "../../interfaces";
@@ -24,11 +24,7 @@ const Login = () => {
       className="d-flex flex-column min-vh-100 justify-content-center align-items-center"
       fluid
     >
-      <Form
-        aria-label="Log in form"
-        className="login-form"
-        onSubmit={handleSubmit}
-      >
+      <Form className="login-form">
         <h1 className="mb-3">Login</h1>
 
         <Input
@@ -38,6 +34,9 @@ const Login = () => {
           value={email}
           required={true}
           type="email"
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            setEmail(e.target.value);
+          }}
         />
 
         <Input
@@ -47,9 +46,14 @@ const Login = () => {
           value={password}
           required={true}
           type="password"
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            setPassword(e.target.value);
+          }}
         />
 
-        <button className="btn btn-info mt-1">SIGN IN</button>
+        <Button className="btn btn-info mt-1" onClick={handleSubmit}>
+          SIGN IN
+        </Button>
 
         <p className="mt-1">
           Don't have an account?{" "}
