@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ButtonElement from "../utils/Form/Button/Button";
+import Button from "../utils/Form/Button/Button";
 import Modal from "react-bootstrap/Modal";
 // @ts-ignore
 import { ShortThoughtsAPI } from "../API/ShortThoughtsAPI";
@@ -9,6 +9,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { ThoughtValues } from "../interfaces";
 import MyForm from "../utils/Form/Form";
+import styles from "../home.module.css";
 
 type Props = {
   show: boolean;
@@ -32,13 +33,15 @@ const ThoughtModalAdd = ({ show, toggleShow }: Props) => {
   //const data = { values: [title, text, date] };
   return (
     <>
-      <ButtonElement text="Button" onClick={toggleShow} />
+      <Button className="btn btn-info btn-lg" onClick={toggleShow}>
+        Button
+      </Button>
       <Modal
         show={show}
         onHide={toggleShow}
         backdrop="static"
         keyboard={true}
-        className="editModal"
+        className={styles["modal-edit"]}
         aria-modal="true"
       >
         <Modal.Header closeButton>
@@ -165,8 +168,10 @@ const ThoughtModalAdd = ({ show, toggleShow }: Props) => {
             </Row>
           </Form>*/}
         </Modal.Body>
-        <Modal.Footer aria-label="Modal footer" className="modal-footer">
-          <ButtonElement text="Add new thought" form="editModal" />
+        <Modal.Footer className="modal-footer">
+          <Button className="btn btn-outline-success" form="editModal">
+            Add new thought
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

@@ -22,10 +22,10 @@ const Textarea = ({
   placeholder,
 }: Props) => {
   return (
-    <div className={styles.textareaContainer}>
+    <div className={styles["textarea-container"]}>
       <label htmlFor={name}>{label}</label>
       <textarea
-        className={styles.textareaElement}
+        className={styles["textarea-element"]}
         id={name}
         placeholder={placeholder}
         rows={rows}

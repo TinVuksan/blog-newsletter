@@ -22,13 +22,13 @@ const Input = ({
 }: Props) => {
   return (
     <>
-      <div className={styles.inputContainer}>
-        <label className={styles.inputLabel} htmlFor={name}>
+      <div className={styles["input-container"]}>
+        <label className={styles["input-label"]} htmlFor={name}>
           {label}
         </label>
 
         <input
-          className={styles.inputElement}
+          className={styles["input-element"]}
           placeholder={placeholder}
           id={name}
           name={name}

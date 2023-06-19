@@ -3,37 +3,21 @@
 }
 
 body {
-    background: url(./Images/home-bg.png) no-repeat center center fixed;
+    background: linear-gradient(#030E36, #212044, #271F44, #262444, #331035) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 
-.tableHeaders {
-    font-weight: bolder;
-    font-size: 26px;
-
-}
-
-
-.divContainer {
+.container-div {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.editModal {
+.modal-edit {
     font-size: 18px;
-}
-
-.buttonsDiv {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.table-responsive {
-    text-align: center;
 }
 
 .modal-content {
@@ -53,16 +37,16 @@ body {
     color: white;
 }
 
-.markdown {
+/*.markdown {
     background-color: white;
     max-width: 45vw;
     word-wrap: break-word;
     overflow: auto;
     border: 1px solid #ced4da;
     border-radius: 7px;
-    padding: 7px;
+    padding: 10px;
     min-height: 20vh;
-}
+}*/
 
 .markdown p {
     color: black;

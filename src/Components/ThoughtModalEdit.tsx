@@ -11,6 +11,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Thought, ThoughtValues } from "../interfaces";
 import styles from "../home.module.css";
+import Button from "../utils/Form/Button/Button";
 
 type Props = {
   show: boolean;
@@ -48,19 +49,18 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
         onHide={toggleShow}
         backdrop="static"
         keyboard={false}
-        className={styles.editModal}
+        className={styles["modal-edit"]}
         aria-modal="true"
         fullscreen
         contentClassName={styles["modal-content"]}
       >
         <Modal.Header closeButton>
-          <Modal.Title aria-label="Modal title">My short thought</Modal.Title>
+          <Modal.Title>My short thought</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <Form
             id="editModal"
-            aria-label="Edit thought modal form element"
             onSubmit={(e): void => {
               e.preventDefault();
               toggleShow();
@@ -79,8 +79,6 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
                 <Form.Label id="editForm-title">Title</Form.Label>
                 <Form.Control
                   type="text"
-                  aria-placeholder="Choose a title"
-                  aria-labelledby="editForm-title"
                   placeholder="Choose a title"
                   value={title.value}
                   onChange={(e): void => {
@@ -93,8 +91,6 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
                 <Form.Control
                   type="date"
                   placeholder="Date"
-                  aria-placeholder="mm/dd/YYYY"
-                  aria-labelledby="editForm-date"
                   className="date"
                   value={date.value}
                   onChange={(e): void => {
@@ -110,9 +106,6 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
                 <Form.Control
                   as="textarea"
                   rows={20}
-                  aria-placeholder="Write something..."
-                  aria-labelledby="editForm-body"
-                  aria-multiline="true"
                   placeholder="Write something..."
                   value={text.value}
                   onChange={(e): void => {
@@ -123,12 +116,7 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
 
               <Form.Group as={Col} controlId="itemMarkdown">
                 <Form.Label id="editForm-markdown">Markdown preview</Form.Label>
-                <div
-                  aria-labelledby="editForm-markdown"
-                  aria-multiline="true"
-                  aria-readonly="true"
-                  className={styles["markdown"]}
-                >
+                <div role="presentation" className={styles["markdown"]}>
                   <ReactMarkdown
                     children={text.value}
                     remarkPlugins={[remarkGfm]}
@@ -157,20 +145,12 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <button
-            aria-label="Close modal form button"
-            onClick={toggleShow}
-            className="btn btn-danger"
-          >
+          <Button onClick={toggleShow} className="btn btn-danger">
             Close
-          </button>
-          <button
-            aria-label="Submit modal form button"
-            form="editModal"
-            className="btn btn-info"
-          >
+          </Button>
+          <Button form="editModal" className="btn btn-info">
             Update
-          </button>
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

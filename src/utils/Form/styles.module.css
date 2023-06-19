@@ -1,23 +1,23 @@
-.formContainer {
-    display:flex;
+.form-container {
+    display: flex;
     flex-direction: column;
-
-
 }
 
 .markdown {
     background-color: white;
-    max-width:45vw;
-    word-wrap:break-word;
-    overflow:auto;
-    border:1px solid #ced4da;
+    max-width: 80vw;
+    word-wrap: break-word;
+    overflow: auto;
+    border: 1px solid #ced4da;
     border-radius: 7px;
-    padding:7px;
-    min-height:20vh;
+    padding: 2%;
+    min-height: 20vh;
 }
+
 .markdown p {
-    color:black;
+    color: black;
 }
+
 .markdown h2 {
-    color:black;
+    color: black;
 }

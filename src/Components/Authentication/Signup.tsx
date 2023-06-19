@@ -1,10 +1,11 @@
 import { ChangeEvent, SyntheticEvent, useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { User } from "../../interfaces";
 import Input from "../../utils/Form/Input/Input";
 import { useRegisterSubmit } from "../../utils/hooks/useSubmit";
+import Button from "../../utils/Form/Button/Button";
 
 const Signup = () => {
   const [email, setEmail] = useState<User["email"]>("");

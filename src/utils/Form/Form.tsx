@@ -33,7 +33,7 @@ const Form = ({
   formType,
 }: Props) => {
   return (
-    <form className={styles.formContainer} onSubmit={onSubmit}>
+    <form className={styles["form-container"]} onSubmit={onSubmit}>
       <Input
         label="Title"
         name="Title"

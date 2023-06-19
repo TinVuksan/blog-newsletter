@@ -28,9 +28,9 @@ const ThoughtTable = () => {
   };
 
   /*  const openEditModal = (selectedItem: Thought): void => {
-        setSelectedThought(selectedItem);
-        toggleShow();
-      };*/
+              setSelectedThought(selectedItem);
+              toggleShow();
+            };*/
 
   //DATE FORMAT
   const formatDate = (dateString: string): string => {
@@ -64,7 +64,7 @@ const ThoughtTable = () => {
           />
         </h3>
       </Row>
-      <div role="presentation" className={styles.cardsContainer}>
+      <div role="presentation" className={styles["cards-container"]}>
         {data.length > 0 ? (
           data.map((item) => (
             <Card
@@ -76,13 +76,13 @@ const ThoughtTable = () => {
             >
               <Card.Body>
                 <Card.Title>{item.values[0].value}</Card.Title>
-                <Card.Text className={styles.cardText}>
+                <Card.Text className={styles["card-text"]}>
                   {item.values[1].value.length > 80
                     ? item.values[1].value.substring(0, 80) + "..."
                     : item.values[1].value}
                 </Card.Text>
               </Card.Body>
-              <Card.Footer className={styles.cardFooter}>
+              <Card.Footer className={styles["card-footer"]}>
                 {/*<Button onClick={() => openEditModal(item)} variant="info">*/}
                 {/*  Open*/}
                 {/*</Button>*/}

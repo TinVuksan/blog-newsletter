@@ -1,20 +1,17 @@
-.inputContainer {
-
-    padding:7px;
-    width:fit-content;
-    margin:5px;
-    display:flex;
-    flex-direction:column;
+.input-container {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
 }
 
-.inputElement {
-    margin-top:0.5vh;
+.input-element {
+    margin: 0.5vh 0vh;
     background-color: white;
-    border:1px solid #ced4da;
-    border-radius: 3px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
 
 }
 
-.inputLabel {
-    color:white;
+.input-label {
+    color: black;
 }
