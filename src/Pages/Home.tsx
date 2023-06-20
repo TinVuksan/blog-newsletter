@@ -8,7 +8,7 @@ const Home = () => {
   const [handleSignout] = useHandleSignout();
 
   return (
-    <Container style={{ color: "white" }} fluid>
+    <Container role="presentation" style={{ color: "white" }} fluid>
       <Hero signOut={handleSignout} />
       <ThoughtTable />
     </Container>

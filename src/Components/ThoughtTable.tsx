@@ -47,8 +47,8 @@ const ThoughtTable = () => {
   }, []);
 
   return (
-    <Container>
-      <Row>
+    <Container role="presentation">
+      <Row role="presentation">
         <h3>
           Feeling inspired? Write it down &#8594;{" "}
           <ThoughtModalAdd

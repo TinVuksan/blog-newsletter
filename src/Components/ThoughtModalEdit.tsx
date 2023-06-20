@@ -1,10 +1,7 @@
 import { useState, useEffect, forwardRef, SyntheticEvent } from "react";
-import { Form, Row, Col } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 // @ts-ignore
 import { ShortThoughtsAPI } from "../API/ShortThoughtsAPI";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 // @ts-ignore
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 // @ts-ignore
@@ -14,6 +11,7 @@ import styles from "../home.module.css";
 import Button from "../utils/Form/Button/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import MyForm from "../utils/Form/Form";
 
 type Props = {
   show: boolean;
@@ -53,6 +51,19 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
     }
   };
 
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    toggleShow();
+    ShortThoughtsAPI.updateItem(id, JSON.stringify([title, text, date])).then(
+      () => {
+        setOpenSnackbar(true);
+        setTimeout(() => {
+          getData();
+        }, 2500);
+      }
+    );
+  };
+
   useEffect(() => {
     assignValues();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,6 +72,29 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
   return (
     <>
       <Modal
+        show={show}
+        onHide={toggleShow}
+        backdrop="static"
+        keyboard={true}
+        className={styles["modal-edit"]}
+        aria-modal="true"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <strong>New short thought</strong>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <MyForm
+            title={title}
+            text={text}
+            date={date}
+            setTitle={setTitle}
+            setDate={setDate}
+            setText={setText}
+            formType="edit"
+          />
+          {/*<Modal
         show={show}
         onHide={toggleShow}
         backdrop="static"
@@ -169,21 +203,27 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
             Update
           </Button>
         </Modal.Footer>
+      </Modal>*/}
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={3000}
+            onClose={handleSnackbarClose}
+          >
+            <Alert
+              onClose={handleSnackbarClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              This is a success message!
+            </Alert>
+          </Snackbar>
+        </Modal.Body>
+        <Modal.Footer className="modal-footer">
+          <Button className="btn btn-outline-success" onClick={handleSubmit}>
+            Submit edit
+          </Button>
+        </Modal.Footer>
       </Modal>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={3000}
-        onClose={handleSnackbarClose}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          This is a success message!
-        </Alert>
-      </Snackbar>
-      ;
     </>
   );
 };

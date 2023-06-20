@@ -41,7 +41,12 @@ const Form = ({
         type="text"
         value={title.value}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setTitle({ fieldId: title.fieldId, value: e.target.value });
+          formType == "add"
+            ? setTitle({
+                fieldName: title.fieldName,
+                value: e.target.value,
+              })
+            : setTitle({ fieldId: title.fieldId, value: e.target.value });
         }}
       />
       <Input
@@ -51,7 +56,12 @@ const Form = ({
         type="date"
         value={date.value}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setDate({ fieldId: date.fieldName, value: e.target.value });
+          formType == "add"
+            ? setDate({ fieldName: date.fieldName, value: e.target.value })
+            : setDate({
+                fieldId: date.fieldId,
+                value: e.target.value,
+              });
         }}
       />
       <Textarea
@@ -62,13 +72,18 @@ const Form = ({
         rows={5}
         value={text.value}
         onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-          setText({ fieldId: date.fieldName, value: e.target.value });
+          formType == "add"
+            ? setText({ fieldName: text.fieldName, value: e.target.value })
+            : setText({
+                fieldId: text.fieldId,
+                value: e.target.value,
+              });
         }}
       />
       <div className={styles["markdown"]}>
         {/* Custom React component for displaying Markdown */}
         <ReactMarkdown
-          children="Some text"
+          children={text.value}
           remarkPlugins={[remarkGfm]}
           components={{
             code({ node, inline, className, children, ...props }) {

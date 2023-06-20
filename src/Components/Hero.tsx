@@ -7,7 +7,7 @@ type Props = {
 };
 const Hero = ({ signOut }: Props) => {
   return (
-    <Container fluid className="container mb-5 mt-3">
+    <Container fluid className="container mb-5 mt-3" role="presentation">
       <div className={styles["container-div"]} role="presentation">
         <h1 className="mb-3">My recent short thoughts</h1>
         <Button

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import Button from "../utils/Form/Button/Button";
 import Modal from "react-bootstrap/Modal";
 // @ts-ignore
@@ -16,7 +16,7 @@ type Props = {
   toggleShow(): void;
   getData(): Promise<void>;
 };
-const ThoughtModalAdd = ({ show, toggleShow }: Props) => {
+const ThoughtModalAdd = ({ show, toggleShow, getData }: Props) => {
   const [title, setTitle] = useState<ThoughtValues>({
     fieldName: "title",
     value: "",
@@ -30,7 +30,18 @@ const ThoughtModalAdd = ({ show, toggleShow }: Props) => {
     fieldName: "creation_date",
     value: "",
   });
-  //const data = { values: [title, text, date] };
+  const data = { values: [title, text, date] };
+
+  const handleSubmit = (e: SyntheticEvent) => {
+    toggleShow();
+    console.log(data);
+    e.preventDefault();
+    ShortThoughtsAPI.addItem(JSON.stringify(data)).then(() => {
+      setTimeout(() => {
+        getData();
+      }, 3000);
+    });
+  };
   return (
     <>
       <Button className="btn btn-info btn-lg" onClick={toggleShow}>
@@ -169,7 +180,7 @@ const ThoughtModalAdd = ({ show, toggleShow }: Props) => {
           </Form>*/}
         </Modal.Body>
         <Modal.Footer className="modal-footer">
-          <Button className="btn btn-outline-success" form="editModal">
+          <Button className="btn btn-outline-success" onClick={handleSubmit}>
             Add new thought
           </Button>
         </Modal.Footer>
