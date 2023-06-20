@@ -1,4 +1,3 @@
-import styles from "./styles.module.css";
 import React, { SyntheticEvent } from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -11,13 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({ onClick, hidden, children, form, ...props }: ButtonProps) => {
   return (
-    <button
-      form={form}
-      className={styles.button}
-      hidden={hidden}
-      onClick={onClick}
-      {...props}
-    >
+    <button form={form} hidden={hidden} onClick={onClick} {...props}>
       {children}
     </button>
   );

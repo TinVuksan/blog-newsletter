@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, forwardRef, SyntheticEvent } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 // @ts-ignore
@@ -12,6 +12,8 @@ import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Thought, ThoughtValues } from "../interfaces";
 import styles from "../home.module.css";
 import Button from "../utils/Form/Button/Button";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
 type Props = {
   show: boolean;
@@ -20,12 +22,26 @@ type Props = {
   getData(): Promise<void>;
 };
 
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
   const [title, setTitle] = useState<ThoughtValues>({} as ThoughtValues);
   const [text, setText] = useState<ThoughtValues>({} as ThoughtValues);
   const [date, setDate] = useState<ThoughtValues>({} as ThoughtValues);
   const id = item?.id;
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
+  const handleSnackbarClose = (e?: SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
   const assignValues = () => {
     if (id) {
       setTitle({
@@ -68,6 +84,7 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
                 id,
                 JSON.stringify([title, text, date])
               ).then(() => {
+                setOpenSnackbar(true);
                 setTimeout(() => {
                   getData();
                 }, 2500);
@@ -153,6 +170,20 @@ const ThoughtModalEdit = ({ show, toggleShow, item, getData }: Props) => {
           </Button>
         </Modal.Footer>
       </Modal>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          This is a success message!
+        </Alert>
+      </Snackbar>
+      ;
     </>
   );
 };

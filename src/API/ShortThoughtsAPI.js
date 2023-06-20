@@ -22,7 +22,7 @@ export const ShortThoughtsAPI = {
         data: data,
       })
       .then((response) => {
-        window.alert("Updated successfully!");
+        // window.alert("Updated successfully!");
         console.log(response);
       })
       .catch((error) => {

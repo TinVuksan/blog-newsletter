@@ -15,8 +15,8 @@ export interface ThoughtValues {
 }
 
 export interface User {
-  username?: string;
+  username: string;
   email: string;
   password: string;
-  phone?: string;
+  phone: string;
 }

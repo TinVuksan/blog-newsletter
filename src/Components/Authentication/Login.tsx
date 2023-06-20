@@ -5,6 +5,7 @@ import { Form } from "react-bootstrap";
 import { User } from "../../interfaces";
 import { useLoginSubmit } from "../../utils/hooks/useSubmit";
 import Input from "../../utils/Form/Input/Input";
+import styles from "./styles.module.css";
 
 const Login = () => {
   const [email, setEmail] = useState<User["email"]>("");
@@ -15,6 +16,7 @@ const Login = () => {
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
     handleLogin(email, password);
+    navigate("/home");
     setPassword("");
     setEmail("");
   };
@@ -24,7 +26,7 @@ const Login = () => {
       className="d-flex flex-column min-vh-100 justify-content-center align-items-center"
       fluid
     >
-      <Form className="login-form">
+      <Form className={styles["form"]}>
         <h1 className="mb-3">Login</h1>
 
         <Input

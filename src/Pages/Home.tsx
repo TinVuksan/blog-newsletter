@@ -7,8 +7,6 @@ const Home = () => {
   useCheckUser();
   const [handleSignout] = useHandleSignout();
 
-  //Check if user is logged in and sign out function
-
   return (
     <Container style={{ color: "white" }} fluid>
       <Hero signOut={handleSignout} />

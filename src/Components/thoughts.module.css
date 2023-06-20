@@ -1,25 +1,51 @@
 .cards-container {
-    width: 80%;
+    width: 90%;
+    margin: 1vh auto;
+    --min: 35ch;
     display: flex;
-    justify-content: space-around;
-    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 1rem;
 
 }
 
+.cards-container > * {
+    flex: 1 1 var(--min);
+}
+
 .card {
-    min-height: 25vh;
-    min-width: 15vw !important;
-    max-width: 20vw;
-    margin-right: 1vw;
+    transition: transform .3s;
+    min-height: 30vh;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-header p {
+    margin: 0;
 }
 
 .card-footer {
     display: flex;
     align-items: center;
     height: 20%;
+    justify-content: space-between;
 
 }
 
 .card-text {
     margin-top: 5vh;
+}
+
+.delete-icon {
+    color: #ff4747;
+    font-size: 1.7em;
 }

@@ -6,6 +6,7 @@ import { User } from "../../interfaces";
 import Input from "../../utils/Form/Input/Input";
 import { useRegisterSubmit } from "../../utils/hooks/useSubmit";
 import Button from "../../utils/Form/Button/Button";
+import styles from "./styles.module.css";
 
 const Signup = () => {
   const [email, setEmail] = useState<User["email"]>("");
@@ -17,7 +18,7 @@ const Signup = () => {
 
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
-    handleRegister(email, tel!, password, username!);
+    handleRegister(email, password, tel, username);
     setEmail("");
     setTel("");
     setUsername("");
@@ -25,8 +26,8 @@ const Signup = () => {
   };
 
   return (
-    <Container className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-      <Form className="signup-form">
+    <Container className={styles["form-container"]}>
+      <Form className={styles["form"]}>
         <h1 className="mb-3">Sign up </h1>
 
         <Input
