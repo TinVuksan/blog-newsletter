@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from "react";
+import { forwardRef, SyntheticEvent, useState } from "react";
 import Button from "../utils/Form/Button/Button";
 import Modal from "react-bootstrap/Modal";
 // @ts-ignore
@@ -10,13 +10,17 @@ import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { ThoughtValues } from "../interfaces";
 import MyForm from "../utils/Form/Form";
 import styles from "../home.module.css";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
 type Props = {
   show: boolean;
   toggleShow(): void;
   getData(): Promise<void>;
 };
+
 const ThoughtModalAdd = ({ show, toggleShow, getData }: Props) => {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [title, setTitle] = useState<ThoughtValues>({
     fieldName: "title",
     value: "",
@@ -32,15 +36,33 @@ const ThoughtModalAdd = ({ show, toggleShow, getData }: Props) => {
   });
   const data = { values: [title, text, date] };
 
+  const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref
+  ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleSnackbarClose = (e?: SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+
   const handleSubmit = (e: SyntheticEvent) => {
     toggleShow();
     console.log(data);
     e.preventDefault();
-    ShortThoughtsAPI.addItem(JSON.stringify(data)).then(() => {
-      setTimeout(() => {
-        getData();
-      }, 3000);
-    });
+    ShortThoughtsAPI.addItem(JSON.stringify(data))
+      .then(() => {
+        setTimeout(() => {
+          getData();
+        }, 3000);
+      })
+      .then(() => {
+        setOpenSnackbar(true);
+      });
   };
   return (
     <>
@@ -70,114 +92,6 @@ const ThoughtModalAdd = ({ show, toggleShow, getData }: Props) => {
             setText={setText}
             formType="add"
           />
-          {/* <Form
-            id="editModal"
-            onSubmit={(e) => {
-              //Add item function
-              toggleShow();
-              e.preventDefault();
-              ShortThoughtsAPI.addItem(JSON.stringify(data)).then(() => {
-                setTimeout(() => {
-                  getData();
-                }, 3000);
-              });
-            }}
-          >
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="itemTitle">
-                <Form.Label id="addThoughtForm-title">Title</Form.Label>
-                <Form.Control
-                  type="text"
-                  aria-placeholder="Choose a title"
-                  aria-labelledby="addThoughtForm-title"
-                  placeholder="Choose a title"
-                  value={title.value}
-                  onChange={(e) => {
-                    setTitle({
-                      fieldName: title.fieldName,
-                      value: e.target.value,
-                    });
-                  }}
-                  required
-                />
-              </Form.Group>
-              <Form.Group as={Col} controlId="itemDate">
-                <Form.Label id="addThoughtForm-date">Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  aria-placeholder="MM/DD/YYYY"
-                  aria-labelledby="addThoughtForm-date"
-                  placeholder="MM/DD/YYYY"
-                  value={date.value}
-                  onChange={(e) => {
-                    setDate({
-                      fieldName: date.fieldName,
-                      value: e.target.value,
-                    });
-                  }}
-                  required
-                />
-              </Form.Group>
-            </Row>
-
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="itemBody">
-                <Form.Label id="addThoughtForm-body">Text</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  aria-multiline="true"
-                  aria-placeholder="Write something"
-                  aria-labelledby="addThoughtForm-body"
-                  rows={20}
-                  placeholder="Write something..."
-                  value={text.value}
-                  onChange={(e) => {
-                    setText({
-                      fieldName: text.fieldName,
-                      value: e.target.value,
-                    });
-                  }}
-                  required
-                />
-              </Form.Group>
-              <Form.Group as={Col} controlId="itemMarkdown">
-                <Form.Label id="addThoughtForm-markdown">
-                  Markdown preview
-                </Form.Label>
-                <div
-                  aria-placeholder="Markdown preview"
-                  aria-labelledby="addThoughtForm-markdown"
-                  aria-multiline="true"
-                  aria-readonly="true"
-                  className={styles["markdown"]}
-                >
-                  Custom React component for displaying Markdown
-                  <ReactMarkdown
-                    children={text.value}
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      code({ node, inline, className, children, ...props }) {
-                        const match = /language-(\w+)/.exec(className || "");
-                        return !inline && match ? (
-                          <SyntaxHighlighter
-                            children={String(children).replace(/\n$/, "")}
-                            style={materialDark}
-                            language={match[1]}
-                            PreTag="div"
-                            {...props}
-                          />
-                        ) : (
-                          <code className={className} {...props}>
-                            {children}
-                          </code>
-                        );
-                      },
-                    }}
-                  />
-                </div>
-              </Form.Group>
-            </Row>
-          </Form>*/}
         </Modal.Body>
         <Modal.Footer className="modal-footer">
           <Button className="btn btn-outline-success" onClick={handleSubmit}>
@@ -185,6 +99,19 @@ const ThoughtModalAdd = ({ show, toggleShow, getData }: Props) => {
           </Button>
         </Modal.Footer>
       </Modal>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Thought added successfully!
+        </Alert>
+      </Snackbar>
     </>
   );
 };

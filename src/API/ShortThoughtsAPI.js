@@ -39,7 +39,7 @@ export const ShortThoughtsAPI = {
         data: data,
       })
       .then((res) => {
-        window.alert("Item added!");
+        //window.alert("Item added!");
         console.log(res);
       })
       .catch((error) => {

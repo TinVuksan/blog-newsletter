@@ -8,6 +8,7 @@ import styles from "./thoughts.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import Button from "../utils/Form/Button/Button";
+import { useConfirmationModalContext } from "./modalConfirmationContext";
 
 const ThoughtTable = () => {
   const [data, setData] = useState<Thought[]>([]);
@@ -16,6 +17,7 @@ const ThoughtTable = () => {
   const [selectedThought, setSelectedThought] = useState<Thought | undefined>(
     undefined
   );
+  const modalContext = useConfirmationModalContext();
 
   const toggleShow = (): void => {
     setShow(!show);
@@ -40,6 +42,20 @@ const ThoughtTable = () => {
     const [year, month, day] = dateString.split("-");
     const formatedDate = [day, month, year].join("-");
     return formatedDate;
+  };
+
+  const handleDelete = async (id: number) => {
+    const result = await modalContext.showConfirmation(
+      "Delete confirmation",
+      "Are you sure you want to delete this item?"
+    );
+    if (result) {
+      ShortThoughtsAPI.deleteItem(id).then(() => {
+        setTimeout(() => {
+          getData();
+        }, 1500);
+      });
+    }
   };
 
   useEffect(() => {
@@ -91,13 +107,7 @@ const ThoughtTable = () => {
                   className={styles["delete-icon"]}
                   onClick={(e: SyntheticEvent) => {
                     e.stopPropagation();
-                    if (window.confirm(`Delete thought no. ${item.id} ?`)) {
-                      ShortThoughtsAPI.deleteItem(item.id).then(() => {
-                        setTimeout(() => {
-                          getData();
-                        }, 1500);
-                      });
-                    }
+                    handleDelete(item.id);
                   }}
                 />
               </Card.Footer>
